@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popcorn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://vjs.zencdn.net/7.8.4/video-js.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <label for="videoInput" class="video-input">Select a video</label>
+    <input type="file" id="videoInput" accept="video/*">
+    <div class="container">
+        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
+            <!-- <source id="videoSource" src="../test/test.mp4" type="video/mp4"> -->
+            <!-- <track label="Japanese" kind="subtitles" srclang="ja" src="../test/test.vtt" default> -->
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+        </video>
+    </div>
+
+    <!-- <div class="container">
+        <button class="player-button" id="chatOpenButton"><i class="fas fa-comments"></i></button>
+        <div class="chatbox" id="chatBox" style="visibility: hidden;"></div>
+        <video id="videoPlayer" class="video-frame" src="test.mp4" controls>
+            <track label="Japanese" kind="subtitles" srclang="ja" src="test.vtt" default>
+        </video>
+    </div> -->
+
+    <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+    <script src="https://cdn.sc.gl/videojs-hotkeys/0.2/videojs.hotkeys.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/player.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #000000;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background-color: #000000;
+    height: 100%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.video-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    margin: 1em;
+    border: 1px solid #000;
+    box-shadow: 0 0 5px #000000;
+    padding: 1em;
+    background: #ffffff5b;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.chatbox {
+    float: right;
+    position: absolute;
+    right: 1.575rem;
+    top: 1.575rem;
+    z-index: 1;
+    padding: 5px;
+    height: 75%;
+    width: 25%;
+    background-color: #1a1a1a;
+    opacity: 50%;
+    color: #fff;
+}
+
+.player-button {
+    display: block;
+    float: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 2;
+    padding: 0.625rem;
+    margin: 0.75rem;
+    background: #181818;
+    opacity: 70%;
+    color: #f1f1f1;
+    font-size: 1em;
+    border: none;
+    border-radius: 1.5rem;
+    outline: none;
+    cursor: pointer;
+}
+
+/* .video-js {
+    
+} */
+
+.video-js.vjs-fluid, .video-js.vjs-16-9, .video-js.vjs-4-3 {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.vjs-tech, .vjs-control, .vjs-big-play-button, .vjs-menu-button, .vjs-menu-item {
+    outline: none;
+}
+
+.vjs-playback-rate .vjs-playback-rate-value {
+    font-size: 1.5em;
+}
+
+.video-js .vjs-title-bar {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    
+    /*
+      By default, do not show the title bar.
+    */
+    display: none;
+    font-size: 2em;
+    padding: .5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  /* 
+    Only show the title bar after playback has begun (so as not to hide
+    the big play button) and only when paused or when the user is 
+    interacting with the player.
+  */
+  .video-js.vjs-paused.vjs-has-started .vjs-title-bar,
+  .video-js.vjs-user-active.vjs-has-started .vjs-title-bar{
+    display: block;
+  }
+  
