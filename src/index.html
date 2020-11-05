@@ -12,10 +12,14 @@
 </head>
 
 <body>
-    <label for="videoInput" class="video-input">Select a video</label>
-    <input type="file" id="videoInput" accept="video/*">
+    <div class="ui-container" id="homeScreen">
+        <div class="brand unselectable">Popcorn!</div>
+        <div class="tagline unselectable">First of it's kind party watch video player</div>
+        <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
+        <input type="file" id="videoInputButton" accept="video/*">
+    </div>
     <div class="container">
-        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
+        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" muted data-setup="{}">
             <!-- <source id="videoSource" src="../test/test.mp4" type="video/mp4"> -->
             <!-- <track label="Japanese" kind="subtitles" srclang="ja" src="../test/test.vtt" default> -->
             <p class="vjs-no-js">
@@ -24,6 +28,40 @@
                 <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
             </p>
         </video>
+        <button class="player-button" id="watchPartyButton"
+            onclick="document.getElementById('watchPartyMenu').style.display = 'block'"><i
+                class="fa fa-width fa-user-plus"></i></button>
+        <div class="ui-container" id="watchPartyMenu" style="display: none;">
+            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close" title="Close">&times;</span>
+            <input type="text" id="nicknameInput" style="margin-top: 12vh;" placeholder="Enter a nickname" spellcheck="false">
+            <hr style="width: 70vw; margin: 8vh 0 12vh 0; border-color: #8f8f8f;">
+            <div id="joinSessionContainer">
+                <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;" id="startSessionButton">Start a watch party <i
+                        class="fa fa-plus-circle fa-fw"></i></button>
+                <div style="padding: 0.5rem; text-align: center;">
+                    <hr class="form-divider-line">
+                    <span class="form-divider">(or)</span>
+                    <hr class="form-divider-line">
+                </div>
+                <input id="sessionJoinId" style="margin: 6vh 0 2vh 0;"  onfocus="this.select()" type="text" name="session-joinId"
+                    placeholder="Enter party code" spellcheck="false">
+                <button onclick="joinSession()" class="ui-button wp-item unselectable" id="joinSessionButton">Join party <i
+                        class="fa fa-sign-in-alt fa-fw"></i></button>
+            </div>
+            <div id="newSessionContainer" style="display: none;">
+                <span id="sessionIdSpan" class="ui-item wp-item">Session ID</span>
+                <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to clipboard <i class="fa fa-clipboard fa-fw"></i></button>
+                <button onclick="generateSessionId(this)" class="ui-button wp-item unselectable">Generate new session ID <i class="fa fa-redo fa-fw"></i></button>
+                <button onclick="stopSession()" class="ui-button wp-item unselectable">End session <i class="fa fa-ban fa-fw"></i></button>
+            </div>
+            <div id="joinedSessionContainer" style="display: none;">
+                <span id="joinedMessageSpan">You've joined the session!</span>
+                <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i class="fa fa-sign-out-alt fa-fw"></i></button>
+            </div>
+        </div>
+        <button class="player-button" id="chatOpenButton"><i class="fas fa-width fa-comments"></i></button>
+        <div class="chatarea" id="chatArea" style="visibility: hidden;"></div>
+
     </div>
 
     <!-- <div class="container">
@@ -36,8 +74,10 @@
 
     <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
     <script src="https://cdn.sc.gl/videojs-hotkeys/0.2/videojs.hotkeys.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/session.js"></script>
 </body>
 
 </html>

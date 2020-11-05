@@ -1,4 +1,6 @@
-const videoInput = document.getElementById('videoInput');
+const socket = io('https://popcornapp-server.herokuapp.com/');
+
+const videoInputButton = document.getElementById('videoInputButton');
 const URL = window.URL || window.webkitURL;
 
 function playSelectedFile(event) {
@@ -17,6 +19,7 @@ function playSelectedFile(event) {
 
     let fileURL = URL.createObjectURL(file);
     player.src({ type: type, src: fileURL });
+    document.getElementById('homeScreen').style.display = "none";
 }
 
-videoInput.addEventListener('change', playSelectedFile);
+videoInputButton.addEventListener('change', playSelectedFile);
