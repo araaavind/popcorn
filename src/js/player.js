@@ -12,9 +12,6 @@ const player = videojs('videoPlayer', {
     }
 });
 
-const controlBar = player.getChild('ControlBar');
-controlBar.removeChild('PictureInPictureToggle');
-
 const Component = videojs.getComponent('Component');
 
 class TitleBar extends Component {
