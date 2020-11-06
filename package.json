@@ -5,12 +5,16 @@
   "main": "app.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/popcorn.icns --prune=true --out=dist",
+    "package-win": "electron-packager . popcorn --overwrite --asar=true --platform=win32 --arch=x64 --icon=assets/icons/popcorn.ico --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Popcorn\"",
+    "package-linux": "electron-packager . popcorn --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/popcorn.png --prune=true --out=dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "electron": "^10.1.5"
+    "electron": "^10.1.5",
+    "electron-packager": "^15.1.0"
   }
 }
