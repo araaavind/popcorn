@@ -1,37 +1,90 @@
+// let sessionId = undefined;
+// let nickname = "Anonymous";
+
+// document.getElementById('nicknameInput').addEventListener('focusin', e => {
+//     //  Show scrollbar if inside the box
+//     e.target.select();
+//     e.target.style.overflowX = "auto";
+// });
+
+let packet = {
+    sessionId: undefined,
+    nickname: "Anonymous",
+    prevname: "Anonymous",
+    action: undefined,
+    message: ""
+}
+
+document.getElementById('nicknameInput').addEventListener('focusout', e => {
+    if (packet.nickname !== e.target.value) {
+        packet.prevname = packet.nickname;
+        packet.nickname = e.target.value;
+
+        if (packet.sessionId) {
+            packet.action = "CHANGE_NAME";
+            socket.emit('change_nickname', packet);
+            chatArea.appendChild(createChatInfoElement("You changed your nickname to " + packet.nickname));
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    }
+});
+
 function startNewSession() {
     document.getElementById('newSessionContainer').style.display = "block";
     document.getElementById('joinSessionContainer').style.display = "none";
     document.getElementById('joinedSessionContainer').style.display = "none";
+    document.getElementById('chatOpenButton').style.visibility = "visible";
 
-    let sessionId = makeId(6);
+    packet.sessionId = makeId(6);
     let sessionIdspan = document.getElementById('sessionIdSpan');
-    sessionIdspan.textContent = sessionId;
+    sessionIdspan.textContent = packet.sessionId;
     copySessionId(document.getElementById("copyButton"));
-}
 
-function stopSession() {
-    document.getElementById('newSessionContainer').style.display = "none";
-    document.getElementById('joinSessionContainer').style.display = "block";
-    document.getElementById('joinedSessionContainer').style.display = "none";
+    packet.action = "CREATE";
+    socket.emit('create_session', packet);
+
+    chatArea.innerHTML = "";
+    chatArea.appendChild(createChatInfoElement("You created the party :)"));
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function generateSessionId() {
-    stopSession();
+    leaveSession();
     startNewSession();
 }
 
 function joinSession() {
-    let sessionId = document.getElementById('sessionJoinId').value;
+    sessionId = document.getElementById('sessionJoinId').value;
 
     document.getElementById('newSessionContainer').style.display = "none";
     document.getElementById('joinSessionContainer').style.display = "none";
     document.getElementById('joinedSessionContainer').style.display = "block";
+    document.getElementById('chatOpenButton').style.visibility = "visible";
+
+    packet.sessionId = sessionId;
+    packet.action = "SUBSCRIBE";
+    console.log(packet)
+    socket.emit('join_session', packet);
+
+    chatArea.innerHTML = "";
+    chatArea.appendChild(createChatInfoElement("You joined the party :D"));
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function leaveSession() {
     document.getElementById('newSessionContainer').style.display = "none";
     document.getElementById('joinSessionContainer').style.display = "block";
     document.getElementById('joinedSessionContainer').style.display = "none";
+    document.getElementById('chatOpenButton').style.visibility = "hidden";
+    document.getElementById('chatRoom').style.visibility = "hidden";
+
+    packet.action = "UNSUBSCRIBE";
+    socket.emit('leave_session', packet);
+
+    packet.sessionId = undefined;
+
+    chatArea.appendChild(createChatInfoElement("You left the party :("));
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function copySessionId(btn) {

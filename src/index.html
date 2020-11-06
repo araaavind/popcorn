@@ -14,19 +14,21 @@
     <div id="title-bar">
         <div id="title" class="unselectable">POPCORN</div>
         <div id="title-bar-btns" class="unselectable">
-             <button id="min-btn" class="title-bar-button"><i class="fa fa-fw fa-minus"></i></button>
-             <button id="max-btn" class="title-bar-button"><i class="far fa-fw fa-window-maximize"></i></button>
-             <button id="close-btn" class="title-bar-button"><i class="fa fa-fw fa-times"></i></button>
+            <button id="min-btn" class="title-bar-button"><i class="fa fa-fw fa-minus"></i></button>
+            <button id="max-btn" class="title-bar-button"><i class="far fa-fw fa-window-maximize"></i></button>
+            <button id="close-btn" class="title-bar-button"><i class="fa fa-fw fa-times"></i></button>
         </div>
-   </div>
+    </div>
     <div class="ui-container" id="homeScreen">
+        <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui" id="closeUi"
+            style="visibility: hidden;" title="Close">&times;</span>
         <div class="brand unselectable">Popcorn!</div>
         <div class="tagline unselectable">First of it's kind party watch video player</div>
         <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
         <input type="file" id="videoInputButton" accept="video/*">
     </div>
     <div class="container">
-        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" muted data-setup="{}">
+        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
             <!-- <source id="videoSource" src="../test/test.mp4" type="video/mp4"> -->
             <!-- <track label="Japanese" kind="subtitles" srclang="ja" src="../test/test.vtt" default> -->
             <p class="vjs-no-js">
@@ -35,39 +37,58 @@
                 <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
             </p>
         </video>
+        <button class="player-button" id="homeOpenButton" onclick="openUI()"><i
+                class="fa fa-width fa-home"></i></button>
         <button class="player-button" id="watchPartyButton"
             onclick="document.getElementById('watchPartyMenu').style.display = 'block'"><i
                 class="fa fa-width fa-user-plus"></i></button>
         <div class="ui-container" id="watchPartyMenu" style="display: none;">
-            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui" title="Close">&times;</span>
-            <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname" spellcheck="false">
+            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui"
+                title="Close">&times;</span>
+            <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname"
+                spellcheck="false" maxlength="8">
             <hr style="width: 70vw; margin: 8vh 0 12vh 0; border-color: #8f8f8f;">
             <div id="joinSessionContainer">
-                <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;" id="startSessionButton">Start a watch party <i
-                        class="fa fa-plus-circle fa-fw"></i></button>
+                <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;"
+                    id="startSessionButton">Start a watch party <i class="fa fa-plus-circle fa-fw"></i></button>
                 <div style="padding: 0.5rem; text-align: center;">
                     <hr class="form-divider-line">
                     <span class="form-divider">(or)</span>
                     <hr class="form-divider-line">
                 </div>
-                <input id="sessionJoinId" style="margin: 6vh 0 2vh 0;"  onfocus="this.select()" type="text" name="session-joinId"
-                    placeholder="Enter party code" spellcheck="false">
-                <button onclick="joinSession()" class="ui-button wp-item unselectable" id="joinSessionButton">Join party <i
-                        class="fa fa-sign-in-alt fa-fw"></i></button>
+                <input id="sessionJoinId" style="margin: 6vh 0 2vh 0;" onfocus="this.select()" type="text"
+                    name="session-joinId" placeholder="Enter party code" spellcheck="false">
+                <button onclick="joinSession()" class="ui-button wp-item unselectable" id="joinSessionButton">Join party
+                    <i class="fa fa-sign-in-alt fa-fw"></i></button>
             </div>
             <div id="newSessionContainer" style="display: none;">
                 <span id="sessionIdSpan" class="ui-item wp-item">Session ID</span>
-                <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to clipboard <i class="fa fa-clipboard fa-fw"></i></button>
-                <button onclick="generateSessionId(this)" class="ui-button wp-item unselectable">Generate new code <i class="fa fa-redo fa-fw"></i></button>
-                <button onclick="stopSession()" class="ui-button wp-item unselectable">End party <i class="fa fa-ban fa-fw"></i></button>
+                <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to
+                    clipboard <i class="fa fa-clipboard fa-fw"></i></button>
+                <button onclick="generateSessionId(this)" class="ui-button wp-item unselectable">Generate new code <i
+                        class="fa fa-redo fa-fw"></i></button>
+                <button onclick="leaveSession()" class="ui-button wp-item unselectable">Leave party <i
+                        class="fa fa-ban fa-fw"></i></button>
             </div>
             <div id="joinedSessionContainer" style="display: none;">
                 <span id="joinedMessageSpan">You've joined the session!</span>
-                <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i class="fa fa-sign-out-alt fa-fw"></i></button>
+                <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i
+                        class="fa fa-sign-out-alt fa-fw"></i></button>
             </div>
         </div>
-        <button class="player-button" id="chatOpenButton"><i class="fas fa-width fa-comments"></i></button>
-        <div class="chatarea" id="chatArea" style="visibility: hidden;"></div>
+        <button class="player-button" id="chatOpenButton" style="visibility: hidden;"><i
+                class="fas fa-width fa-comments"></i></button>
+        <div class="chatroom" id="chatRoom" style="visibility: hidden;">
+            <div class="chat-area" id="chatArea">
+            </div>
+            <div class="message-input-container">
+                <form id="messageForm" class="form-container" action="">
+                    <input class="message-input" id="messageInput" autocomplete="off" spellcheck="false"
+                        placeholder="Type a message" />
+                    <button class="send-button"><i class="fa fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
 
     </div>
 
@@ -78,6 +99,7 @@
     <script src="js/main.js"></script>
     <script src="js/player.js"></script>
     <script src="js/session.js"></script>
+    <script src="js/chat.js"></script>
 </body>
 
 </html>
