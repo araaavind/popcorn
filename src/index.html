@@ -13,6 +13,7 @@
 <body>
     <div id="title-bar">
         <div id="title" class="unselectable">POPCORN</div>
+        <div id="videoName" class="unselectable"></div>
         <div id="title-bar-btns" class="unselectable">
             <button id="min-btn" class="title-bar-button"><i class="fa fa-fw fa-minus"></i></button>
             <button id="max-btn" class="title-bar-button"><i class="far fa-fw fa-window-maximize"></i></button>
@@ -25,7 +26,7 @@
         <div class="brand unselectable">Popcorn!</div>
         <div class="tagline unselectable">First of it's kind party watch video player</div>
         <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
-        <input type="file" id="videoInputButton" accept="video/*">
+        <input type="file" id="videoInputButton" accept="video/*.*">
     </div>
     <div class="container">
         <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
@@ -42,12 +43,14 @@
         <button class="player-button" id="watchPartyButton"
             onclick="document.getElementById('watchPartyMenu').style.display = 'block'"><i
                 class="fa fa-width fa-user-plus"></i></button>
+        <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
+                class="fa fa-width fa-sync-alt"></i></button>
         <div class="ui-container" id="watchPartyMenu" style="display: none;">
             <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui"
                 title="Close">&times;</span>
             <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname"
                 spellcheck="false" maxlength="8">
-            <hr style="width: 70vw; margin: 8vh 0 12vh 0; border-color: #8f8f8f;">
+            <hr style="width: 70vw; margin: 8vh 0 10vh 0; border-color: #8f8f8f;">
             <div id="joinSessionContainer">
                 <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;"
                     id="startSessionButton">Start a watch party <i class="fa fa-plus-circle fa-fw"></i></button>
@@ -62,6 +65,8 @@
                     <i class="fa fa-sign-in-alt fa-fw"></i></button>
             </div>
             <div id="newSessionContainer" style="display: none;">
+                <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
+                        style="cursor: pointer;  font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
                 <span id="sessionIdSpan" class="ui-item wp-item">Session ID</span>
                 <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to
                     clipboard <i class="fa fa-clipboard fa-fw"></i></button>
@@ -71,7 +76,12 @@
                         class="fa fa-ban fa-fw"></i></button>
             </div>
             <div id="joinedSessionContainer" style="display: none;">
-                <span id="joinedMessageSpan">You've joined the session!</span>
+                <span id="joinedMessageSpan" style="margin-bottom: 1em;">You've joined the session!</span>
+                <br>
+                <br>
+                <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
+                        style="cursor: pointer; font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
+                <br>
                 <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i
                         class="fa fa-sign-out-alt fa-fw"></i></button>
             </div>
@@ -95,10 +105,11 @@
     <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
     <script src="https://cdn.sc.gl/videojs-hotkeys/0.2/videojs.hotkeys.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
-    <script src="js/titlebar.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/titlebar.js"></script>
     <script src="js/player.js"></script>
     <script src="js/session.js"></script>
+    <script src="js/playback.js"></script>
     <script src="js/chat.js"></script>
 </body>
 

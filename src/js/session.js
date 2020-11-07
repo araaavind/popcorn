@@ -1,19 +1,11 @@
-// let sessionId = undefined;
-// let nickname = "Anonymous";
-
-// document.getElementById('nicknameInput').addEventListener('focusin', e => {
-//     //  Show scrollbar if inside the box
-//     e.target.select();
-//     e.target.style.overflowX = "auto";
-// });
-
 let packet = {
     sessionId: undefined,
     nickname: "Anonymous",
     prevname: "Anonymous",
     action: undefined,
-    message: ""
-}
+    message: "",
+    time: 0
+};
 
 document.getElementById('nicknameInput').addEventListener('focusout', e => {
     if (packet.nickname !== e.target.value) {
@@ -34,6 +26,13 @@ function startNewSession() {
     document.getElementById('joinSessionContainer').style.display = "none";
     document.getElementById('joinedSessionContainer').style.display = "none";
     document.getElementById('chatOpenButton').style.visibility = "visible";
+    document.getElementById('playbackSyncButton').style.visibility = "visible";
+
+    if (!playbackSyncActive) {
+        Array.from(document.getElementsByClassName('playback-sync-toggle')).forEach(element => {
+            switchPlaybackSync(element.firstElementChild, "ON");
+        });
+    }
 
     packet.sessionId = makeId(6);
     let sessionIdspan = document.getElementById('sessionIdSpan');
@@ -60,10 +59,16 @@ function joinSession() {
     document.getElementById('joinSessionContainer').style.display = "none";
     document.getElementById('joinedSessionContainer').style.display = "block";
     document.getElementById('chatOpenButton').style.visibility = "visible";
+    document.getElementById('playbackSyncButton').style.visibility = "visible";
+
+    if (!playbackSyncActive) {
+        Array.from(document.getElementsByClassName('playback-sync-toggle')).forEach(element => {
+            switchPlaybackSync(element.firstElementChild, "ON");
+        });
+    }
 
     packet.sessionId = sessionId;
     packet.action = "SUBSCRIBE";
-    console.log(packet)
     socket.emit('join_session', packet);
 
     chatArea.innerHTML = "";
@@ -77,6 +82,13 @@ function leaveSession() {
     document.getElementById('joinedSessionContainer').style.display = "none";
     document.getElementById('chatOpenButton').style.visibility = "hidden";
     document.getElementById('chatRoom').style.visibility = "hidden";
+    document.getElementById('playbackSyncButton').style.visibility = "hidden";
+
+    if (playbackSyncActive) {
+        Array.from(document.getElementsByClassName('playback-sync-toggle')).forEach(element => {
+            switchPlaybackSync(element.firstElementChild, "OFF");
+        });
+    }
 
     packet.action = "UNSUBSCRIBE";
     socket.emit('leave_session', packet);

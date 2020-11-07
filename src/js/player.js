@@ -12,6 +12,7 @@ const player = videojs('videoPlayer', {
     }
 });
 
+/*
 const Component = videojs.getComponent('Component');
 
 class TitleBar extends Component {
@@ -40,3 +41,4 @@ class TitleBar extends Component {
 
 videojs.registerComponent('TitleBar', TitleBar);
 player.addChild('TitleBar', {text: 'The Title of The Video!'});
+*/

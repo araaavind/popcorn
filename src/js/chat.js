@@ -1,7 +1,3 @@
-socket.on('connected', (msg) => {
-    console.log(msg.body);
-});
-
 const chatOpenButton = document.getElementById('chatOpenButton');
 const chatRoom = document.getElementById('chatRoom');
 const chatArea = document.getElementById('chatArea');

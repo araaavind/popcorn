@@ -12,7 +12,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "video.js": "^7.10.2"
+  },
   "devDependencies": {
     "electron": "^10.1.5",
     "electron-packager": "^15.1.0"

@@ -7,6 +7,7 @@ const url = require('url');
 let win;
 function createWindow() {
     win = new BrowserWindow({
+        show: false,
         frame: false,
         minWidth: 600,
         minHeight: 480,
@@ -16,11 +17,16 @@ function createWindow() {
             nodeIntegration: true
         }
     });
+
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'src/index.html'),
         protocol: 'file',
         slashes: true
     }));
+
+    win.on('ready-to-show', () => {
+        win.show();
+    });
 
     win.on('closed', () => {
         win = null;
