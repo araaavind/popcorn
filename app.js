@@ -4,8 +4,29 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
-let win;
+let win, loaderWin;
 function createWindow() {
+    loaderWin = new BrowserWindow({
+        show: false,
+        frame: false,
+        backgroundColor: "#1f1f1f",
+        width: 450,
+        height: 300,
+        maximizable: false,
+        minimizable: false,
+        movable: false
+    });
+
+    loaderWin.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/loader.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+    loaderWin.once('ready-to-show', () => {
+        loaderWin.show();
+    });
+
     win = new BrowserWindow({
         show: false,
         frame: false,
@@ -24,12 +45,17 @@ function createWindow() {
         slashes: true
     }));
 
-    win.on('ready-to-show', () => {
+    win.once('ready-to-show', () => {
         win.show();
+        loaderWin.close();
     });
 
     win.on('closed', () => {
         win = null;
+    });
+
+    loaderWin.on('closed', () => {
+        loaderWin.null;
     });
 }
 

@@ -8,13 +8,9 @@
         });
 
         document.getElementById("max-btn").addEventListener("click", function (e) {
-            if(BrowserWindow.isMaximized()) {
-                document.getElementById("max-btn").firstChild.classList.toggle("fa-window-restore");
-                document.getElementById("max-btn").firstChild.classList.toggle("fa-window-maximize");
-                BrowserWindow.restore();
+            if (BrowserWindow.isMaximized()) {
+                BrowserWindow.unmaximize();
             } else {
-                document.getElementById("max-btn").firstChild.classList.toggle("fa-window-maximize");
-                document.getElementById("max-btn").firstChild.classList.toggle("fa-window-restore");
                 BrowserWindow.maximize();
             }
         });
@@ -23,6 +19,16 @@
             BrowserWindow.close();
         });
     };
+
+    BrowserWindow.on('maximize', () => {
+        document.getElementById("max-btn").firstChild.classList.toggle("fa-window-restore");
+        document.getElementById("max-btn").firstChild.classList.toggle("fa-window-maximize");
+    });
+
+    BrowserWindow.on('unmaximize', () => {
+        document.getElementById("max-btn").firstChild.classList.toggle("fa-window-maximize");
+        document.getElementById("max-btn").firstChild.classList.toggle("fa-window-restore");
+    });
 
     document.onreadystatechange = function () {
         if (document.readyState == "complete") {

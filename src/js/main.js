@@ -16,7 +16,7 @@ function openUI() {
 function playSelectedFile(event) {
     let file = this.files[0];
     let type = file.type;
-    if(type === "video/x-matroska") {
+    if (type === "video/x-matroska") {
         type = "video/webm";
     }
     let videoNode = document.querySelector('video');

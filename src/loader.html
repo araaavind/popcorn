@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loadingDots.css">
+    <title>Loading</title>
+    <style>
+        #loader-screen {
+            height: 100%;
+        }
+        #loader {
+            margin: 3em 0;
+        }
+        #loader-brand {
+            width: 100%;
+            margin: 0 0 0.35em 0;
+            text-align: center;
+            font-size: 4.5em;
+        }
+        #loader-tagline {
+            width: 100%;
+            background: none;
+            text-align: center;
+            margin-bottom: 10vh;
+            box-sizing: border-box;
+            letter-spacing: 0.05em;
+            font-size: 1.125em;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader-screen">
+        <div id="loader">
+            <div class="brand unselectable" id="loader-brand">Popcorn!</div>
+            <div class="tagline unselectable" id="loader-tagline">First of it's kind party watch video player</div>
+            <div class="browser-screen-loading-content" style="padding-top: 10px;">
+                <div class="loading-dots dark-gray">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
