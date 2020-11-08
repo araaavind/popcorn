@@ -12,33 +12,40 @@ const player = videojs('videoPlayer', {
     }
 });
 
-/*
-const Component = videojs.getComponent('Component');
+let homeButton = document.getElementById('homeOpenButton');
+let partyButton = document.getElementById('watchPartyButton');
+let syncButton = document.getElementById('playbackSyncButton');
+let chatButton = document.getElementById('chatOpenButton');
 
-class TitleBar extends Component {
-    constructor(player, options) {
-        super(arguments);
-
-        if (options.text) {
-            this.updateTextContent(options.text);
+function hideControls() {
+    setTimeout(() => {
+        homeButton.style.visibility = "hidden";
+        partyButton.style.visibility = "hidden";
+        syncButton.style.visibility = "hidden";
+        if (chatRoom.style.visibility === "hidden") {
+            chatButton.style.visibility = "hidden";
         }
-    };
+    }, 200);
+}
 
-    createEl() {
-        return videojs.dom.createEl('div', {
-            className: 'vjs-title-bar'
-        });
-    };
-
-    updateTextContent(text) {
-        if (typeof text !== 'string') {
-            text = 'Title Unknown';
-        }
-        videojs.dom.emptyEl(this.el());
-        videojs.dom.appendContent(this.el(), text);
+function showControls() {
+    homeButton.style.visibility = "visible";
+    partyButton.style.visibility = "visible";
+    if (packet.sessionId) {
+        syncButton.style.visibility = "visible";
+        chatButton.style.visibility = "visible";
     }
 }
 
-videojs.registerComponent('TitleBar', TitleBar);
-player.addChild('TitleBar', {text: 'The Title of The Video!'});
-*/
+player.on('userinactive', hideControls);
+
+player.on('useractive', showControls);
+
+player.on('pause', () => {
+    player.off('userinactive', hideControls);
+    showControls();
+});
+
+player.on('play', () => {
+    player.on('userinactive', hideControls);
+});

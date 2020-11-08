@@ -30,21 +30,21 @@ function switchPlaybackSync(btn, action) {
     parent.appendChild(btn);
 }
 
-player.on('play', () => {
+function handlePlayEvent() {
     if (packet.sessionId) {
         packet.action = "PLAY";
         socket.emit('playback_sync', packet);
     }
-});
+}
 
-player.on('pause', () => {
+function handlePauseEvent() {
     if (packet.sessionId) {
         packet.action = "PAUSE";
         socket.emit('playback_sync', packet);
     }
-});
+}
 
-playbackSyncButton.addEventListener('click', (e) => {
+function handleSyncEvent() {
     if (packet.sessionId) {
         playbackSyncButton.firstElementChild.classList.toggle("fa-spin");
         packet.action = "SYNC";
@@ -54,15 +54,27 @@ playbackSyncButton.addEventListener('click', (e) => {
             playbackSyncButton.firstElementChild.classList.toggle("fa-spin");
         }, 1000);
     }
-});
+}
+
+player.on('play', handlePlayEvent);
+player.on('pause', handlePauseEvent);
+playbackSyncButton.addEventListener('click', handleSyncEvent);
 
 socket.on('playback_sync', (packet) => {
     if (playbackSyncActive) {
         switch (packet.action) {
             case "PLAY":
+                player.off('play', handlePlayEvent);
+                player.one('play', () => {
+                    player.on('play', handlePlayEvent);
+                });
                 player.play();
                 break;
             case "PAUSE":
+                player.off('pause', handlePauseEvent);
+                player.one('pause', () => {
+                    player.on('pause', handlePauseEvent);
+                });
                 player.pause();
                 break;
             case "SYNC":

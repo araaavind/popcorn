@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="ui-container" id="homeScreen">
-        <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui" id="closeUi"
+        <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui unselectable" id="closeUi"
             style="visibility: hidden;" title="Close">&times;</span>
         <div class="brand unselectable">Popcorn!</div>
         <div class="tagline unselectable">First of it's kind party watch video player</div>
@@ -46,7 +46,7 @@
         <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
                 class="fa fa-width fa-sync-alt"></i></button>
         <div class="ui-container" id="watchPartyMenu" style="display: none;">
-            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui"
+            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui unselectable"
                 title="Close">&times;</span>
             <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname"
                 spellcheck="false" maxlength="8">

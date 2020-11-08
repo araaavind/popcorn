@@ -1,4 +1,4 @@
-const socket = io('http://localhost:5000');
+const socket = io('https://popcornapp-server.herokuapp.com/');
 const { remote } = require('electron');
 
 const videoInputButton = document.getElementById('videoInputButton');
