@@ -4,6 +4,14 @@ const { remote } = require('electron');
 const videoInputButton = document.getElementById('videoInputButton');
 const URL = window.URL || window.webkitURL;
 
+if (remote.process.argv.length >= 2) {
+    let filePath = remote.process.argv[1];
+    if(filePath !== '.') {
+        player.src({ type: "video/webm", src: filePath });
+        document.getElementById('homeScreen').style.display = 'none';
+    }
+}
+
 function openUI() {
     document.getElementById('homeScreen').style.display = 'block';
     if (player.src === null) {
@@ -32,6 +40,7 @@ function playSelectedFile(event) {
 
     let fileURL = URL.createObjectURL(file);
     player.src({ type: type, src: fileURL });
+    loadedFilePath = undefined;
     document.getElementById('homeScreen').style.display = "none";
     // document.getElementsByClassName('vjs-title-bar')[0].textContent = file.name; // for video-js titlebar
     document.getElementById('videoName').textContent = (file.name.length <= 30) ? file.name : file.name.slice(0, 30) + "...";

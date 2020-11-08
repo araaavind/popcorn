@@ -1,5 +1,4 @@
 (function () {
-    // const { remote } = require('electron');
     const BrowserWindow = remote.getCurrentWindow();
 
     function init() {

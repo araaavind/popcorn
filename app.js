@@ -46,8 +46,10 @@ function createWindow() {
     }));
 
     win.once('ready-to-show', () => {
-        win.show();
-        loaderWin.close();
+        setTimeout(() => {
+            win.show();
+            loaderWin.close();
+        }, 3000);
     });
 
     win.on('closed', () => {
