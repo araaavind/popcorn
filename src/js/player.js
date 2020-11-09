@@ -1,3 +1,6 @@
+const videojs = require('video.js');
+const hotkeys = require('videojs-hotkeys');
+const youtube = require('videojs-youtube');
 const player = videojs('videoPlayer', {
     controls: true,
     autoplay: false,

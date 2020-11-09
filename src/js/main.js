@@ -1,4 +1,22 @@
 const socket = io('https://popcornapp-server.herokuapp.com/');
+let online = true;
+
+socket.on('connect', () => {
+    if (!online) {
+        let alertOnline = new Alert("#2cff84");
+        alertOnline.display("You're back online!", 5000);
+        online = true;
+    }
+});
+
+socket.on('connect_error', (err) => {
+    if (online) {
+        let alertOffline = new Alert("#ff2c4f");
+        alertOffline.display("You are offline. Some functionality may be unavailable.", 10000);
+        online = false;
+    }
+});
+
 const { remote } = require('electron');
 const srt2vtt = require('srt-to-vtt');
 const fs = require('fs');
@@ -26,12 +44,15 @@ function openUI() {
 }
 
 function playSelectedFile(event) {
-    if(vttTempFilePath) {
+    if (vttTempFilePath) {
         fs.unlinkSync(vttTempFilePath);
         vttTempFilePath = undefined;
     }
 
     let file = this.files[0];
+    if (!file) {
+        return;
+    }
     let type = file.type;
     if (type === "video/x-matroska" || type === "video/avi") {
         type = "video/webm";
@@ -58,6 +79,9 @@ function playSelectedFile(event) {
 
 function loadSubtitles(event) {
     let file = this.files[0];
+    if (!file) {
+        return;
+    }
     let type = file.name.slice(-3);
 
     if (type === 'srt') {

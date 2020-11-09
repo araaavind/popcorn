@@ -15,6 +15,13 @@
         });
 
         document.getElementById("close-btn").addEventListener("click", function (e) {
+            if(player) {
+                player.dispose();
+            }
+            if (vttTempFilePath) {
+                fs.unlinkSync(vttTempFilePath);
+                vttTempFilePath = undefined;
+            }
             BrowserWindow.close();
         });
     };
@@ -29,10 +36,5 @@
         document.getElementById("max-btn").firstChild.classList.toggle("fa-window-restore");
     });
 
-    document.onreadystatechange = function () {
-        if (document.readyState == "complete") {
-            init();
-        }
-    };
-
+    init();
 })();

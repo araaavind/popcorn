@@ -49,7 +49,7 @@ function createWindow() {
         setTimeout(() => {
             win.show();
             loaderWin.close();
-        }, 3000);
+        }, 2000);
     });
 
     win.on('closed', () => {

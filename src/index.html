@@ -20,6 +20,7 @@
             <button id="close-btn" class="title-bar-button"><i class="fa fa-fw fa-times"></i></button>
         </div>
     </div>
+    <div id="alertDiv"></div>
     <div class="ui-container" id="homeScreen">
         <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui unselectable"
             id="closeUi" style="visibility: hidden;" title="Close">&times;</span>
@@ -46,7 +47,8 @@
         <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
                 class="fa fa-width fa-sync-alt"></i></button>
 
-        <label for="subsInputButton" id="subtitlesButton" class="player-button unselectable"><i class="fa fa-fw fa-closed-captioning"></i></label>
+        <label for="subsInputButton" id="subtitlesButton" class="player-button unselectable"><i
+                class="fa fa-fw fa-closed-captioning"></i></label>
         <input type="file" id="subsInputButton" accept=".srt, .vtt">
 
         <div class="ui-container" id="watchPartyMenu" style="display: none;">
@@ -106,9 +108,10 @@
 
     </div>
 
-    <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
-    <script src="https://cdn.sc.gl/videojs-hotkeys/0.2/videojs.hotkeys.min.js"></script>
+    <!-- <script src="https://vjs.zencdn.net/7.8.4/video.js"></script> -->
+    <!-- <script src="https://cdn.sc.gl/videojs-hotkeys/0.2/videojs.hotkeys.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+    <script src="js/alert.js"></script>
     <script src="js/player.js"></script>
     <script src="js/main.js"></script>
     <script src="js/titlebar.js"></script>
