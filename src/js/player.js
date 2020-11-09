@@ -16,12 +16,14 @@ let homeButton = document.getElementById('homeOpenButton');
 let partyButton = document.getElementById('watchPartyButton');
 let syncButton = document.getElementById('playbackSyncButton');
 let chatButton = document.getElementById('chatOpenButton');
+let subsButton = document.getElementById('subtitlesButton');
 
 function hideControls() {
     setTimeout(() => {
         homeButton.style.visibility = "hidden";
         partyButton.style.visibility = "hidden";
         syncButton.style.visibility = "hidden";
+        subsButton.style.visibility = "hidden";
         if (chatRoom.style.visibility === "hidden") {
             chatButton.style.visibility = "hidden";
         }
@@ -31,6 +33,7 @@ function hideControls() {
 function showControls() {
     homeButton.style.visibility = "visible";
     partyButton.style.visibility = "visible";
+    subsButton.style.visibility = "visible";
     if (packet.sessionId) {
         syncButton.style.visibility = "visible";
         chatButton.style.visibility = "visible";

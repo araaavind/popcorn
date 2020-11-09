@@ -242,9 +242,23 @@ input[type="text"] {
     z-index: 2;
 }
 
-#watchPartyButton {
+#subtitlesButton {
     position: absolute;
     left: 3.75em;
+    top: 3.65em;
+    z-index: 2;
+}
+
+#watchPartyButton {
+    position: absolute;
+    left: 6.75em;
+    top: 3.65em;
+    z-index: 2;
+}
+
+#playbackSyncButton {
+    position: absolute;
+    left: 9.75em;
     top: 3.65em;
     z-index: 2;
 }
@@ -252,13 +266,6 @@ input[type="text"] {
 #chatOpenButton {
     position: absolute;
     right: 0.75em;
-    top: 3.65em;
-    z-index: 2;
-}
-
-#playbackSyncButton {
-    position: absolute;
-    left: 6.75em;
     top: 3.65em;
     z-index: 2;
 }

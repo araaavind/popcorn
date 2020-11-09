@@ -1,12 +1,16 @@
 const socket = io('https://popcornapp-server.herokuapp.com/');
 const { remote } = require('electron');
+const srt2vtt = require('srt-to-vtt');
+const fs = require('fs');
 
 const videoInputButton = document.getElementById('videoInputButton');
+const subsInputButton = document.getElementById('subsInputButton');
 const URL = window.URL || window.webkitURL;
+let vttTempFilePath;
 
 if (remote.process.argv.length >= 2) {
     let filePath = remote.process.argv[1];
-    if(filePath !== '.') {
+    if (filePath !== '.') {
         player.src({ type: "video/webm", src: filePath });
         document.getElementById('homeScreen').style.display = 'none';
     }
@@ -22,9 +26,14 @@ function openUI() {
 }
 
 function playSelectedFile(event) {
+    if(vttTempFilePath) {
+        fs.unlinkSync(vttTempFilePath);
+        vttTempFilePath = undefined;
+    }
+
     let file = this.files[0];
     let type = file.type;
-    if (type === "video/x-matroska") {
+    if (type === "video/x-matroska" || type === "video/avi") {
         type = "video/webm";
     }
     let videoNode = document.querySelector('video');
@@ -47,4 +56,37 @@ function playSelectedFile(event) {
     document.getElementById('videoName').style.borderLeft = "1px solid #fff";
 }
 
+function loadSubtitles(event) {
+    let file = this.files[0];
+    let type = file.name.slice(-3);
+
+    if (type === 'srt') {
+        let w;
+        vttTempFilePath = file.path.replace('.srt', '.vtt');
+
+        fs.createReadStream(file.path)
+            .pipe(srt2vtt())
+            .pipe(w = fs.createWriteStream(vttTempFilePath));
+
+        w.on('finish', () => {
+            let vttContent = fs.readFileSync(vttTempFilePath);
+            let vttFile = new File([vttContent], 'vttFile.vtt');
+            let fileURL = URL.createObjectURL(vttFile);
+            player.addRemoteTextTrack({
+                kind: 'captions',
+                label: file.name.slice(0, -4),
+                src: fileURL
+            }, false);
+        });
+    } else {
+        let fileURL = URL.createObjectURL(file);
+        player.addRemoteTextTrack({
+            kind: 'captions',
+            label: file.name.slice(0, -4),
+            src: fileURL
+        }, false);
+    }
+}
+
 videoInputButton.addEventListener('change', playSelectedFile);
+subsInputButton.addEventListener('change', loadSubtitles);

@@ -21,17 +21,17 @@
         </div>
     </div>
     <div class="ui-container" id="homeScreen">
-        <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui unselectable" id="closeUi"
-            style="visibility: hidden;" title="Close">&times;</span>
+        <span onclick="document.getElementById('homeScreen').style.display='none'" class="close-ui unselectable"
+            id="closeUi" style="visibility: hidden;" title="Close">&times;</span>
         <div class="brand unselectable">Popcorn!</div>
         <div class="tagline unselectable">First of it's kind party watch video player</div>
         <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
-        <input type="file" id="videoInputButton" accept="video/*.*">
+        <input type="file" id="videoInputButton" accept=".mkv, .avi, .mp4, .webm">
     </div>
     <div class="container">
         <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
             <!-- <source id="videoSource" src="../test/test.mp4" type="video/mp4"> -->
-            <!-- <track label="Japanese" kind="subtitles" srclang="ja" src="../test/test.vtt" default> -->
+            <!-- <track kind="captions" default> -->
             <p class="vjs-no-js">
                 To view this video please enable JavaScript, and consider upgrading to a
                 web browser that
@@ -45,6 +45,10 @@
                 class="fa fa-width fa-user-plus"></i></button>
         <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
                 class="fa fa-width fa-sync-alt"></i></button>
+
+        <label for="subsInputButton" id="subtitlesButton" class="player-button unselectable"><i class="fa fa-fw fa-closed-captioning"></i></label>
+        <input type="file" id="subsInputButton" accept=".srt, .vtt">
+
         <div class="ui-container" id="watchPartyMenu" style="display: none;">
             <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui unselectable"
                 title="Close">&times;</span>
