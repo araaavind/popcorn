@@ -17,6 +17,7 @@ function createWindow() {
         movable: false
     });
 
+    loaderWin.removeMenu()
     loaderWin.loadURL(url.format({
         pathname: path.join(__dirname, 'src/loader.html'),
         protocol: 'file',
@@ -39,6 +40,7 @@ function createWindow() {
         }
     });
 
+    win.removeMenu();
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'src/index.html'),
         protocol: 'file',
@@ -57,7 +59,7 @@ function createWindow() {
     });
 
     loaderWin.on('closed', () => {
-        loaderWin.null;
+        loaderWin = null;
     });
 }
 

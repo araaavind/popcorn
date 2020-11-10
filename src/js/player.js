@@ -21,6 +21,9 @@ let syncButton = document.getElementById('playbackSyncButton');
 let chatButton = document.getElementById('chatOpenButton');
 let subsButton = document.getElementById('subtitlesButton');
 
+document.getElementById('videoPlayer').appendChild(document.getElementById('customControls'));
+// document.getElementById('customControls').remove();
+
 function hideControls() {
     setTimeout(() => {
         homeButton.style.visibility = "hidden";
@@ -34,9 +37,12 @@ function hideControls() {
 }
 
 function showControls() {
-    homeButton.style.visibility = "visible";
-    partyButton.style.visibility = "visible";
-    subsButton.style.visibility = "visible";
+    if(!player.isFullscreen()) {
+        homeButton.style.visibility = "visible";
+        partyButton.style.visibility = "visible";
+        subsButton.style.visibility = "visible";
+    }
+
     if (packet.sessionId) {
         syncButton.style.visibility = "visible";
         chatButton.style.visibility = "visible";
@@ -54,4 +60,43 @@ player.on('pause', () => {
 
 player.on('play', () => {
     player.on('userinactive', hideControls);
+});
+
+//  Custom fullscreen setup.
+const playerContainer = document.getElementById('playerContainer');
+
+function handleFullscreen() {
+    if (isFullScreen()) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+        else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+    else {
+        if (playerContainer.requestFullscreen) playerContainer.requestFullscreen();
+        else if (playerContainer.mozRequestFullScreen) playerContainer.mozRequestFullScreen();
+        else if (playerContainer.webkitRequestFullScreen) playerContainer.webkitRequestFullScreen();
+        else if (playerContainer.msRequestFullscreen) playerContainer.msRequestFullscreen();
+    }
+}
+
+function isFullScreen() {
+    return !!(document.fullscreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
+}
+
+player.on('fullscreenchange', () => {
+    if(player.isFullscreen()) {
+        document.getElementById('title-bar').style.display = "none";
+        homeButton.style.visibility = "hidden";
+        partyButton.style.visibility = "hidden";
+        subsButton.style.visibility = "hidden";
+        syncButton.style.left = "0.75em";
+    }
+    else {
+        document.getElementById('title-bar').style.display = "block";
+        homeButton.style.visibility = "visible";
+        partyButton.style.visibility = "visible";
+        subsButton.style.visibility = "visible";
+        syncButton.style.left = "9.75em";
+    }
 });

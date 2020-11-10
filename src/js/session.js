@@ -54,6 +54,11 @@ function generateSessionId() {
 
 function joinSession() {
     sessionId = document.getElementById('sessionJoinId').value;
+    if(!sessionId) {
+        let alert = new Alert();
+        alert.display("Enter a valid party code");
+        return;
+    }
 
     document.getElementById('newSessionContainer').style.display = "none";
     document.getElementById('joinSessionContainer').style.display = "none";
@@ -81,6 +86,13 @@ function leaveSession() {
     document.getElementById('joinSessionContainer').style.display = "block";
     document.getElementById('joinedSessionContainer').style.display = "none";
     document.getElementById('chatOpenButton').style.visibility = "hidden";
+    if (chatOpenButton.classList.contains("player-button-active")) {
+        let icon = document.getElementById('chatOpenButton').querySelector('i');
+        icon.classList.toggle("fa-comment-slash");
+        icon.classList.toggle("fa-comments");
+        chatOpenButton.classList.toggle("player-button-active");
+    }
+
     document.getElementById('chatRoom').style.visibility = "hidden";
     document.getElementById('playbackSyncButton').style.visibility = "hidden";
 

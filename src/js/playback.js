@@ -31,21 +31,21 @@ function switchPlaybackSync(btn, action) {
 }
 
 function handlePlayEvent() {
-    if (packet.sessionId) {
+    if (packet.sessionId && playbackSyncActive) {
         packet.action = "PLAY";
         socket.emit('playback_sync', packet);
     }
 }
 
 function handlePauseEvent() {
-    if (packet.sessionId) {
+    if (packet.sessionId && playbackSyncActive) {
         packet.action = "PAUSE";
         socket.emit('playback_sync', packet);
     }
 }
 
 function handleSyncEvent() {
-    if (packet.sessionId) {
+    if (packet.sessionId && playbackSyncActive) {
         playbackSyncButton.firstElementChild.classList.toggle("fa-spin");
         packet.action = "SYNC";
         packet.time = player.currentTime();

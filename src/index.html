@@ -29,8 +29,49 @@
         <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
         <input type="file" id="videoInputButton" accept=".mkv, .avi, .mp4, .webm">
     </div>
-    <div class="container">
-        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}">
+    <div class="ui-container" id="watchPartyMenu" style="display: none;">
+        <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui unselectable"
+            title="Close">&times;</span>
+        <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname"
+            spellcheck="false" maxlength="8">
+        <hr style="width: 70vw; margin: 8vh 0 10vh 0; border-color: #8f8f8f;">
+        <div id="joinSessionContainer">
+            <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;"
+                id="startSessionButton">Start a watch party <i class="fa fa-plus-circle fa-fw"></i></button>
+            <div style="padding: 0.5rem; text-align: center;">
+                <hr class="form-divider-line">
+                <span class="form-divider">(or)</span>
+                <hr class="form-divider-line">
+            </div>
+            <input id="sessionJoinId" style="margin: 6vh 0 2vh 0;" onfocus="this.select()" type="text"
+                name="session-joinId" placeholder="Enter party code" spellcheck="false">
+            <button onclick="joinSession()" class="ui-button wp-item unselectable" id="joinSessionButton">Join party
+                <i class="fa fa-sign-in-alt fa-fw"></i></button>
+        </div>
+        <div id="newSessionContainer" style="display: none;">
+            <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
+                    style="cursor: pointer;  font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
+            <span id="sessionIdSpan" class="ui-item wp-item">Session ID</span>
+            <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to
+                clipboard <i class="fa fa-clipboard fa-fw"></i></button>
+            <button onclick="generateSessionId(this)" class="ui-button wp-item unselectable">Generate new code <i
+                    class="fa fa-redo fa-fw"></i></button>
+            <button onclick="leaveSession()" class="ui-button wp-item unselectable">Leave party <i
+                    class="fa fa-ban fa-fw"></i></button>
+        </div>
+        <div id="joinedSessionContainer" style="display: none;">
+            <span id="joinedMessageSpan" style="margin-bottom: 1em;">You've joined the session!</span>
+            <br>
+            <br>
+            <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
+                    style="cursor: pointer; font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
+            <br>
+            <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i
+                    class="fa fa-sign-out-alt fa-fw"></i></button>
+        </div>
+    </div>
+    <div class="player-container" id="playerContainer">
+        <video id="videoPlayer" class="video-js vjs-big-play-centered" preload="none" data-setup="{}" muted>
             <!-- <source id="videoSource" src="../test/test.mp4" type="video/mp4"> -->
             <!-- <track kind="captions" default> -->
             <p class="vjs-no-js">
@@ -39,70 +80,34 @@
                 <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
             </p>
         </video>
-        <button class="player-button" id="homeOpenButton" onclick="openUI()"><i
-                class="fa fa-width fa-home"></i></button>
-        <button class="player-button" id="watchPartyButton"
-            onclick="document.getElementById('watchPartyMenu').style.display = 'block'"><i
-                class="fa fa-width fa-user-plus"></i></button>
-        <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
-                class="fa fa-width fa-sync-alt"></i></button>
 
-        <label for="subsInputButton" id="subtitlesButton" class="player-button unselectable"><i
-                class="fa fa-fw fa-closed-captioning"></i></label>
-        <input type="file" id="subsInputButton" accept=".srt, .vtt">
+        <div id="customControls">
+            <button class="player-button" id="homeOpenButton" onclick="openUI()"><i
+                    class="fa fa-width fa-home"></i></button>
 
-        <div class="ui-container" id="watchPartyMenu" style="display: none;">
-            <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui unselectable"
-                title="Close">&times;</span>
-            <input type="text" id="nicknameInput" style="margin-top: 16vh;" placeholder="Enter a nickname"
-                spellcheck="false" maxlength="8">
-            <hr style="width: 70vw; margin: 8vh 0 10vh 0; border-color: #8f8f8f;">
-            <div id="joinSessionContainer">
-                <button onclick="startNewSession()" class="ui-button wp-item unselectable" style="margin: 0 0 6vh 0;"
-                    id="startSessionButton">Start a watch party <i class="fa fa-plus-circle fa-fw"></i></button>
-                <div style="padding: 0.5rem; text-align: center;">
-                    <hr class="form-divider-line">
-                    <span class="form-divider">(or)</span>
-                    <hr class="form-divider-line">
+            <button class="player-button" id="watchPartyButton"
+                onclick="document.getElementById('watchPartyMenu').style.display = 'block'"><i
+                    class="fa fa-width fa-user-plus"></i></button>
+
+            <button class="player-button" id="playbackSyncButton" style="visibility: hidden;"><i
+                    class="fa fa-width fa-sync-alt"></i></button>
+
+            <label for="subsInputButton" id="subtitlesButton" class="player-button unselectable"><i
+                    class="fa fa-fw fa-closed-captioning"></i></label>
+            <input type="file" id="subsInputButton" accept=".srt, .vtt">
+
+            <button class="player-button" id="chatOpenButton" style="visibility: hidden;"><i
+                    class="fas fa-width fa-comments"></i></button>
+            <div class="chatroom" id="chatRoom" style="visibility: hidden;">
+                <div class="chat-area" id="chatArea">
                 </div>
-                <input id="sessionJoinId" style="margin: 6vh 0 2vh 0;" onfocus="this.select()" type="text"
-                    name="session-joinId" placeholder="Enter party code" spellcheck="false">
-                <button onclick="joinSession()" class="ui-button wp-item unselectable" id="joinSessionButton">Join party
-                    <i class="fa fa-sign-in-alt fa-fw"></i></button>
-            </div>
-            <div id="newSessionContainer" style="display: none;">
-                <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
-                        style="cursor: pointer;  font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
-                <span id="sessionIdSpan" class="ui-item wp-item">Session ID</span>
-                <button onclick="copySessionId(this)" id="copyButton" class="ui-button wp-item unselectable">Copy to
-                    clipboard <i class="fa fa-clipboard fa-fw"></i></button>
-                <button onclick="generateSessionId(this)" class="ui-button wp-item unselectable">Generate new code <i
-                        class="fa fa-redo fa-fw"></i></button>
-                <button onclick="leaveSession()" class="ui-button wp-item unselectable">Leave party <i
-                        class="fa fa-ban fa-fw"></i></button>
-            </div>
-            <div id="joinedSessionContainer" style="display: none;">
-                <span id="joinedMessageSpan" style="margin-bottom: 1em;">You've joined the session!</span>
-                <br>
-                <br>
-                <span class="playback-sync-toggle unselectable">Turn on playback sync <i class="fa fa-fw fa-toggle-off"
-                        style="cursor: pointer; font-size: 0.975em;" onclick="togglePlaybackSync(this)"></i></span>
-                <br>
-                <button onclick="leaveSession()" id="sessionLeaveButton" class="ui-button">Leave session <i
-                        class="fa fa-sign-out-alt fa-fw"></i></button>
-            </div>
-        </div>
-        <button class="player-button" id="chatOpenButton" style="visibility: hidden;"><i
-                class="fas fa-width fa-comments"></i></button>
-        <div class="chatroom" id="chatRoom" style="visibility: hidden;">
-            <div class="chat-area" id="chatArea">
-            </div>
-            <div class="message-input-container">
-                <form id="messageForm" class="form-container" action="">
-                    <input class="message-input" id="messageInput" autocomplete="off" spellcheck="false"
-                        placeholder="Type a message" />
-                    <button class="send-button"><i class="fa fa-paper-plane"></i></button>
-                </form>
+                <div class="message-input-container">
+                    <form id="messageForm" class="form-container" action="">
+                        <input class="message-input" id="messageInput" autocomplete="off" spellcheck="false"
+                            placeholder="Type a message" />
+                        <button class="send-button"><i class="fa fa-paper-plane"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
 
