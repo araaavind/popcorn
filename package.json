@@ -1,17 +1,18 @@
 {
   "name": "popcorn",
-  "version": "1.0.0",
-  "description": "Watch-party video player",
+  "version": "1.0.1",
+  "description": "Watch-party video player with playback sync and chat support",
   "main": "app.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/popcorn.icns --prune=true --out=dist",
     "package-win": "electron-packager . popcorn --overwrite --asar=true --platform=win32 --arch=x64 --icon=assets/icons/popcorn-alt.ico --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Popcorn\"",
-    "package-linux": "electron-packager . popcorn --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/popcorn-alt.png --prune=true --out=dist"
+    "package-linux": "electron-packager . popcorn --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/popcorn-alt.png --prune=true --out=dist",
+    "build": "electron-builder"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Aravind Unnikrishnan <aravindmathradan@gmail.com> (https://www.aravindunnikrishnan.xyz)",
+  "license": "MIT",
   "dependencies": {
     "srt-to-vtt": "^1.1.3",
     "video.js": "^7.10.2",
@@ -20,6 +21,29 @@
   },
   "devDependencies": {
     "electron": "^10.1.5",
+    "electron-builder": "^22.9.1",
     "electron-packager": "^15.1.0"
+  },
+  "build": {
+    "appId": "com.popcorn.player",
+    "productName": "Popcorn",
+    "target": "NSIS",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "./assets/icons/*.{ico, png, icns}"
+    ],
+    "win": {
+      "icon": "./assets/icons/popcorn-alt.ico"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "installerIcon": "./assets/icons/popcorn-install.ico",
+      "installerHeaderIcon": "./assets/icons/popcorn-alt.ico",
+      "deleteAppDataOnUninstall": true
+    }
   }
 }
