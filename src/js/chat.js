@@ -18,6 +18,24 @@ chatOpenButton.addEventListener("click", (e) => {
     chatArea.scrollTop = chatArea.scrollHeight;
 });
 
+document.addEventListener('keyup', (e) => {
+    if ((e.code === "keyQ" || e.key === "q" || e.keyCode === 81) && e.ctrlKey && packet.sessionId) {
+        let icon = chatOpenButton.querySelector('i');
+        icon.classList.toggle("fa-comment-slash");
+        icon.classList.toggle("fa-comments");
+        chatOpenButton.classList.toggle("player-button-active");
+        if (chatRoom.style.visibility === "hidden") {
+            chatOpenButton.style.visibility = "visible";
+            chatRoom.style.visibility = "visible";
+        }
+        else {
+            chatRoom.style.visibility = "hidden";
+        }
+        messageInput.focus();
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+});
+
 function createMessageElement(packet, type) {
     let messageContainer = document.createElement('div');
     let messageAuthorSpan = document.createElement('span');
@@ -68,7 +86,7 @@ document.getElementById('messageForm').addEventListener('submit', (e) => {
 messageInput.addEventListener('input', () => {
     let x = messageInput.value;
     if (x === "") {
-        if(packet.typing) {
+        if (packet.typing) {
             packet.typing = false;
             socket.emit('typing_indicator', packet);
         }
@@ -79,8 +97,9 @@ messageInput.addEventListener('input', () => {
 });
 
 messageInput.addEventListener('keyup', (e) => {
-    if(e.key === "Enter" || e.keyCode === 13) {
-        if(packet.typing) {
+    if (e.code === "Enter" || e.key === "Enter" || e.keyCode === 13) {
+        e.stopPropagation();
+        if (packet.typing) {
             packet.typing = false;
             socket.emit('typing_indicator', packet);
         }
@@ -89,7 +108,7 @@ messageInput.addEventListener('keyup', (e) => {
 
 socket.on('typing_indicator', (packet) => {
     let typingSpan = document.getElementById('typing-indicator');
-    if(packet.typing) {
+    if (packet.typing) {
         typingSpan.style.display = "block";
         typingSpan.textContent = packet.nickname + " is typing...";
     } else {
@@ -110,7 +129,6 @@ socket.on('message', (packet) => {
     } else if (packet.action === "SUBSCRIBE") {
         let alert = new Alert();
         alert.display(packet.nickname + " joined the party :D");
-
         chatArea.appendChild(createChatInfoElement(packet.nickname + " joined the party :D"));
         chatArea.scrollTop = chatArea.scrollHeight;
     } else if (packet.action === "UNSUBSCRIBE") {
