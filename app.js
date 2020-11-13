@@ -51,7 +51,7 @@ function createWindow() {
         setTimeout(() => {
             win.show();
             loaderWin.close();
-        }, 2000);
+        }, 1500);
     });
 
     win.on('closed', () => {
