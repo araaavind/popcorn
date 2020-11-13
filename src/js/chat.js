@@ -65,6 +65,38 @@ document.getElementById('messageForm').addEventListener('submit', (e) => {
     chatArea.scrollTop = chatArea.scrollHeight;
 });
 
+messageInput.addEventListener('input', () => {
+    let x = messageInput.value;
+    if (x === "") {
+        if(packet.typing) {
+            packet.typing = false;
+            socket.emit('typing_indicator', packet);
+        }
+    } else {
+        packet.typing = true;
+        socket.emit('typing_indicator', packet);
+    }
+});
+
+messageInput.addEventListener('keyup', (e) => {
+    if(e.key === "Enter" || e.keyCode === 13) {
+        if(packet.typing) {
+            packet.typing = false;
+            socket.emit('typing_indicator', packet);
+        }
+    }
+});
+
+socket.on('typing_indicator', (packet) => {
+    let typingSpan = document.getElementById('typing-indicator');
+    if(packet.typing) {
+        typingSpan.style.display = "block";
+        typingSpan.textContent = packet.nickname + " is typing...";
+    } else {
+        typingSpan.style.display = "none";
+    }
+});
+
 socket.on('message', (packet) => {
     if (packet.action === "MESSAGE") {
         chatArea.appendChild(createMessageElement(packet, "RECEIVED"));

@@ -345,9 +345,13 @@ input[type="text"] {
     display: flex;
     flex-direction: column;
     width: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: 0.75em;
     box-sizing: border-box;
+}
+
+.chat-area:hover {
+    overflow-y: auto;
 }
 
 .chat-area::-webkit-scrollbar {
@@ -359,7 +363,7 @@ input[type="text"] {
 }
 
 .chat-area::-webkit-scrollbar-thumb {
-    background: #3a3a3a;
+    background: #222222;
     border-radius: 5px;
 }
 
@@ -439,14 +443,21 @@ input[type="text"] {
     font-size: 0.9em;
 }
 
+#typing-indicator {
+    font-size: 0.75em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ccc !important;
+    padding: 0.25em;
+}
+
 .send-button {
     flex: 0 0;
     padding: 0em 0.5em;
     outline: none;
-    color: #000000;
+    color: #6b6b6b !important;
     border: 1px solid #000000;
     border-radius: 5px;
-    background-color: #f1b4e9;
+    background-color: #00000080 !important;
     cursor: pointer;
     font-size: 1.25em;
 }

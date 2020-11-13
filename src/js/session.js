@@ -5,7 +5,8 @@ let packet = {
     action: undefined,
     message: "",
     time: 0,
-    seekActive: false
+    seekActive: false,
+    typing: false
 };
 
 let online = true;
