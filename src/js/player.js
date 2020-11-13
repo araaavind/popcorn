@@ -31,6 +31,7 @@ function hideControls() {
         subsButton.style.visibility = "hidden";
         if (chatRoom.style.visibility === "hidden") {
             chatButton.style.visibility = "hidden";
+            unreadBadge.style.visibility = "hidden";
         }
     }, 200);
 }
@@ -45,6 +46,9 @@ function showControls() {
     if (packet.sessionId) {
         syncButton.style.visibility = "visible";
         chatButton.style.visibility = "visible";
+        if(unreadCount > 0) {
+            unreadBadge.style.visibility = "visible";
+        }
     }
 }
 
@@ -60,28 +64,6 @@ player.on('pause', () => {
 player.on('play', () => {
     player.on('userinactive', hideControls);
 });
-
-//  Custom fullscreen setup.
-const playerContainer = document.getElementById('playerContainer');
-
-function handleFullscreen() {
-    if (isFullScreen()) {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-        else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
-    else {
-        if (playerContainer.requestFullscreen) playerContainer.requestFullscreen();
-        else if (playerContainer.mozRequestFullScreen) playerContainer.mozRequestFullScreen();
-        else if (playerContainer.webkitRequestFullScreen) playerContainer.webkitRequestFullScreen();
-        else if (playerContainer.msRequestFullscreen) playerContainer.msRequestFullscreen();
-    }
-}
-
-function isFullScreen() {
-    return !!(document.fullscreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || document.fullscreenElement);
-}
 
 player.on('fullscreenchange', () => {
     if(player.isFullscreen()) {

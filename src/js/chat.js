@@ -2,6 +2,8 @@ const chatOpenButton = document.getElementById('chatOpenButton');
 const chatRoom = document.getElementById('chatRoom');
 const chatArea = document.getElementById('chatArea');
 const messageInput = document.getElementById('messageInput');
+const unreadBadge = document.getElementById('unreadBadge');
+let unreadCount = 0;
 
 chatOpenButton.addEventListener("click", (e) => {
     let icon = chatOpenButton.querySelector('i');
@@ -10,6 +12,8 @@ chatOpenButton.addEventListener("click", (e) => {
     chatOpenButton.classList.toggle("player-button-active");
     if (chatRoom.style.visibility === "hidden") {
         chatRoom.style.visibility = "visible";
+        unreadCount = 0;
+        unreadBadge.style.visibility = "hidden";
     }
     else {
         chatRoom.style.visibility = "hidden";
@@ -27,6 +31,8 @@ document.addEventListener('keyup', (e) => {
         if (chatRoom.style.visibility === "hidden") {
             chatOpenButton.style.visibility = "visible";
             chatRoom.style.visibility = "visible";
+            unreadCount = 0;
+            unreadBadge.style.visibility = "hidden";
         }
         else {
             chatRoom.style.visibility = "hidden";
@@ -117,6 +123,12 @@ socket.on('typing_indicator', (packet) => {
 });
 
 socket.on('message', (packet) => {
+    if(chatRoom.style.visibility === "hidden") {
+        unreadCount += 1;
+        unreadBadge.textContent = unreadCount;
+        unreadBadge.style.visibility = "visible";
+        chatOpenButton.style.visibility = "visible";
+    }
     if (packet.action === "MESSAGE") {
         chatArea.appendChild(createMessageElement(packet, "RECEIVED"));
         chatArea.scrollTop = chatArea.scrollHeight;

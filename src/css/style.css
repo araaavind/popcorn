@@ -319,6 +319,26 @@ input[type="text"] {
     z-index: 2;
 }
 
+#unreadBadge {
+    position: absolute;
+    right: 0.65em;
+    top: 0.75em;
+    z-index: 3;
+
+    font-size: 1em !important;
+    display: block !important;
+    float: right !important;
+    padding: 0.25em !important;
+    background: #e21537 !important;
+    opacity: 70% !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 1.5rem !important;
+    outline: none !important;
+    line-height: normal !important;
+    box-sizing: border-box;
+}
+
 .playback-sync-toggle {
     font-size: 2.75vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
