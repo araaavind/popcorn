@@ -49,6 +49,9 @@ function createChatInfoElement(message) {
 
 document.getElementById('messageForm').addEventListener('submit', (e) => {
     e.preventDefault();
+    if(messageInput.value == "" || messageInput.value == undefined || messageInput.value == " ") {
+        return;
+    }
     if (!packet.sessionId) {
         console.log("no one in party");
         return;
@@ -69,10 +72,19 @@ socket.on('message', (packet) => {
     } else if (packet.action === "CREATE") {
         chatArea.appendChild(createChatInfoElement(packet.nickname + " created the party :)"));
         chatArea.scrollTop = chatArea.scrollHeight;
+    } else if (packet.action === "RECONNECT") {
+        chatArea.appendChild(createChatInfoElement(packet.nickname + " has reconnected."));
+        chatArea.scrollTop = chatArea.scrollHeight;
     } else if (packet.action === "SUBSCRIBE") {
+        let alert = new Alert();
+        alert.display(packet.nickname + " joined the party :D");
+
         chatArea.appendChild(createChatInfoElement(packet.nickname + " joined the party :D"));
         chatArea.scrollTop = chatArea.scrollHeight;
     } else if (packet.action === "UNSUBSCRIBE") {
+        let alert = new Alert();
+        alert.display(packet.nickname + " left the party :(");
+
         chatArea.appendChild(createChatInfoElement(packet.nickname + " left the party :("));
         chatArea.scrollTop = chatArea.scrollHeight;
     } else if (packet.action === "CHANGE_NAME") {

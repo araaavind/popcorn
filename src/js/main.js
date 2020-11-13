@@ -1,21 +1,4 @@
 const socket = io('https://popcornapp-server.herokuapp.com/');
-let online = true;
-
-socket.on('connect', () => {
-    if (!online) {
-        let alertOnline = new Alert("#2cff84");
-        alertOnline.display("You're back online!", 5000);
-        online = true;
-    }
-});
-
-socket.on('connect_error', (err) => {
-    if (online) {
-        let alertOffline = new Alert("#ff2c4f");
-        alertOffline.display("You are offline. Some functionality may be unavailable.", 10000);
-        online = false;
-    }
-});
 
 const { remote } = require('electron');
 const srt2vtt = require('srt-to-vtt');
@@ -42,6 +25,13 @@ function openUI() {
         document.getElementById('closeUi').style.visibility = "visible";
     }
 }
+
+document.addEventListener('keyup', (e) => {
+    if (e.keyCode === 27 || e.key === "Escape" || e.code === "Escape") {
+        document.getElementById('homeScreen').style.display = "none";
+        document.getElementById('watchPartyMenu').style.display = "none";
+    }
+});
 
 function playSelectedFile(event) {
     if (vttTempFilePath) {

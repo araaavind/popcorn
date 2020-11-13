@@ -4,8 +4,45 @@ let packet = {
     prevname: "Anonymous",
     action: undefined,
     message: "",
-    time: 0
+    time: 0,
+    seekActive: false
 };
+
+let online = true;
+
+socket.on('connect', () => {
+    if (!online) {
+        let alertOnline = new Alert("#2cff84");
+        alertOnline.display("You're back online!", 5000);
+        online = true;
+    }
+});
+
+socket.on('connect_error', (err) => {
+    if (online) {
+        let alertOffline = new Alert("#ff2c4f");
+        alertOffline.display("You are offline. Some functionality may be unavailable.", 10000);
+        online = false;
+        if (packet.sessionId) {
+            chatArea.appendChild(createChatInfoElement("Re-establishing connection..."));
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    }
+});
+
+socket.on('lost_connection', (message) => {
+    chatArea.appendChild(createChatInfoElement(message));
+    chatArea.scrollTop = chatArea.scrollHeight;
+});
+
+socket.on('reconnect', () => {
+    if (packet.sessionId) {
+        packet.action = "RECONNECT";
+        socket.emit('join_session', packet);
+        chatArea.appendChild(createChatInfoElement("You've reconnected to the party"));
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+});
 
 document.getElementById('nicknameInput').addEventListener('focusout', e => {
     if (packet.nickname !== e.target.value) {
@@ -54,7 +91,7 @@ function generateSessionId() {
 
 function joinSession() {
     sessionId = document.getElementById('sessionJoinId').value;
-    if(!sessionId) {
+    if (!sessionId) {
         let alert = new Alert();
         alert.display("Enter a valid party code");
         return;

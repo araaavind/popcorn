@@ -22,7 +22,6 @@ let chatButton = document.getElementById('chatOpenButton');
 let subsButton = document.getElementById('subtitlesButton');
 
 document.getElementById('videoPlayer').appendChild(document.getElementById('customControls'));
-// document.getElementById('customControls').remove();
 
 function hideControls() {
     setTimeout(() => {
