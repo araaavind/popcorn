@@ -10,6 +10,14 @@ body {
     flex-direction: column;
 }
 
+@font-face
+{
+    font-family: 'Honeymoon';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../../assets/fonts/Honeymoon.ttf');
+}
+
 #title-bar {
     flex: 0 0;
     -webkit-app-region: drag;
@@ -147,27 +155,26 @@ body {
 }
 
 .brand {
-    margin: 1em 0 0.25em 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(248, 230, 172);
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
-    font-size: 18vh;
+    margin: 0.75em 0 0.25em 0;
+    font-family: 'Honeymoon';
+    color: #5c3f5b;
+    font-size: 24vh;
     font-weight: bold;
+    text-shadow: 0 0 5px #fdf2b2;
     align-self: center;
     width: fit-content;
 }
 
 .tagline {
     padding: 0 0.5em 0.1em 0.5em;
-    margin: 0 0 15vw 0;
+    margin: 0 0 3em 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #00000073;
     color: #ffffff;
-    font-size: 4.5vh;
+    font-size: 4.25vh;
     font-weight: lighter;
     align-self: center;
-    width: fit-content;
+    width: 95vw;
 }
 
 .unselectable {
