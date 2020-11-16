@@ -167,7 +167,7 @@ body {
 
 .tagline {
     padding: 0 0.5em 0.1em 0.5em;
-    margin: 0 0 3em 0;
+    margin: 0 0 0 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #00000073;
     color: #ffffff;
@@ -196,7 +196,8 @@ input[type="file"] {
     display: none;
 }
 
-input[type="text"] {
+#nicknameInput,
+#sessionJoinId {
     width: 40vw;
     padding: 0.5em;
     margin: 2em 0 0.5em 0;
@@ -218,19 +219,22 @@ input[type="text"] {
 
 .ui-button {
     display: block;
-    margin: 2vh 0;
+    margin: 2em 0;
     border: 1px solid #000;
-    box-shadow: 1px 1px 5px #00000080;
     width: 35vw;
     padding: 0.5em;
-    background: #ffffff5b;
-    color: #000000;
+    background: #00000096;
+    color: #ffffff;
     text-align: center;
     cursor: pointer;
     font-size: 3vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
     outline: none;
+}
+
+.ui-button:hover {
+    box-shadow: 1px 1px 5px #00000080;
 }
 
 .ui-item {
