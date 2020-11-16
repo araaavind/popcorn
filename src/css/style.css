@@ -186,6 +186,56 @@ body {
     user-select: none;
 }
 
+.menu-options-container {
+    display: flex;
+    margin: 1.75em 0;
+    height: 100%;
+    width: 100%;
+}
+
+.menu-half-container {
+    flex: 1 0;
+}
+
+.magnet-input {
+    display: inline-block;
+    margin-top: 2em;
+    border: 1px solid #000;
+    width: 25vw;
+    padding: 0.5em;
+    background: #ffffff5b;
+    color: #000000;
+    text-align: left;
+    font-size: 3vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.magnet-input:hover {
+    box-shadow: 1px 1px 5px #00000080;
+}
+
+.magnet-input-button {
+    display: inline-block;
+    margin-top: 2em;
+    border: 1px solid #000000;
+    width: 10vw;
+    padding: 0.5em 0.2em;
+    background: #00000096;
+    color: #ffffff;
+    text-align: center;
+    font-size: 3vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+}
+
+.magnet-input-button:hover {
+    box-shadow: 1px 1px 5px #00000080;
+}
+
 .player-container {
     flex: 1 0;
     background-color: #000000;

@@ -26,8 +26,18 @@
             id="closeUi" style="visibility: hidden;" title="Close">&times;</span>
         <div class="brand unselectable">Popcorn</div>
         <div class="tagline unselectable">First of it's kind party watch video player</div>
-        <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
-        <input type="file" id="videoInputButton" accept=".mkv, .avi, .mp4, .webm">
+        <div class="menu-options-container">
+            <div class="menu-half-container" style="border-right: 1.5px solid #000;">
+                <label for="videoInputButton" class="ui-button unselectable">Select a video</label>
+                <input type="file" id="videoInputButton" accept=".mkv, .avi, .mp4, .webm">
+            </div>
+            <div class="menu-half-container">
+                <form id="magnetForm" class="magnet-form-container" action="">
+                    <input type="text" name="magnet input" class="magnet-input unselectable" id="magnetInput" autocomplete="off" spellcheck="false" placeholder="Enter a magnet URI">
+                    <button class="magnet-input-button unselectable">Stream</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="ui-container" id="watchPartyMenu" style="display: none;">
         <span onclick="document.getElementById('watchPartyMenu').style.display='none'" class="close-ui unselectable"
@@ -116,6 +126,7 @@
     <script src="js/session.js"></script>
     <script src="js/playback.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/torrent.js"></script>
 </body>
 
 </html>
