@@ -77,7 +77,8 @@ document.getElementById('messageForm').addEventListener('submit', (e) => {
         return;
     }
     if (!packet.sessionId) {
-        console.log("no one in party");
+        let alert = new Alert();
+        alert.display("There's no one in this party");
         return;
     }
     packet.message = messageInput.value;

@@ -54,7 +54,8 @@ function playSelectedFile(event) {
     }
     let isError = canPlay === 'no';
     if (isError) {
-        console.log("cant play " + type + " format.");
+        let alert = new Alert();
+        alert.display("This format is not supported yet. Please convert to mp4 or webm");
         return;
     }
 
