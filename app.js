@@ -40,7 +40,7 @@ function createWindow() {
         }
     });
 
-    win.removeMenu();
+    // win.removeMenu();
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'src/index.html'),
         protocol: 'file',

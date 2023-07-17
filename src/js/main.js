@@ -3,6 +3,7 @@ const socket = io('https://popcornapp-server.herokuapp.com/');
 const { remote } = require('electron');
 const srt2vtt = require('srt-to-vtt');
 const fs = require('fs');
+const ffmpeg = require('ffmpeg.js/ffmpeg-mp4.js');
 
 const videoInputButton = document.getElementById('videoInputButton');
 const subsInputButton = document.getElementById('subsInputButton');
@@ -59,8 +60,10 @@ function playSelectedFile(event) {
         return;
     }
 
+    // let youtubeURL = 'https://www.youtube.com/watch?v=xjS6SftYQaQ';
+    // player.src({ type: 'video/youtube', src: youtubeURL, techOrder: ['youtube'] });
     let fileURL = URL.createObjectURL(file);
-    player.src({ type: type, src: fileURL });
+    player.src({ type: type, src: fileURL, techOrder: techOrder });
     loadedFilePath = undefined;
     document.getElementById('homeScreen').style.display = "none";
     // document.getElementsByClassName('vjs-title-bar')[0].textContent = file.name; // for video-js titlebar

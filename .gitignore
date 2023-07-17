@@ -6,3 +6,4 @@ test/*
 dist/*
 *.psd
 build/*
+*.mkv
