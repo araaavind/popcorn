@@ -8,6 +8,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    /* overflow: hidden; */
 }
 
 @font-face
@@ -31,7 +32,7 @@ body {
     box-shadow: 0 0 5px #000;
     box-sizing: border-box;
 }
-   
+
 #title {
     display: inline;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -54,7 +55,7 @@ body {
     box-sizing: border-box;
     margin-left: 0.5em;
 }
-   
+
 #title-bar-btns {
     display: inline;
     float: right;
@@ -116,7 +117,7 @@ body {
     font-weight: bold;
     line-height: 0.5;
 }
-  
+
 .close-alert:hover,
 .close-alert:focus {
     color: #fc637d;
@@ -131,13 +132,25 @@ body {
     align-items: center;
     align-content: center;
     text-align: -webkit-center;
-    display: flex;
-    flex-direction: column;
     width: 100vw;
     height: 100vh;
     z-index: 3;
-    background: rgb(238,174,202);
-    background: linear-gradient(135deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: rgb(238, 174, 202);
+    background: linear-gradient(
+      135deg,
+      rgba(238, 174, 202, 1) 0%,
+      rgba(148, 187, 233, 1) 100%
+    );
+}
+
+.ui-container#watchPartyMenu {
+    background: rgb(36, 27, 32);
+    background: linear-gradient(135deg, rgb(40, 29, 34) 0%, rgb(30, 39, 48) 100%);
+}
+
+.ui-flex {
+    display: flex;
+    flex-direction: column;
 }
 
 .close-ui {
@@ -148,10 +161,32 @@ body {
     font-size: 9vh;
     color: #fff;
     cursor: pointer;
+    z-index: 9999;
 }
 
 .close-ui:hover {
     color: #fc637d;
+}
+
+.home-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #231c25d8, #000000bd);
+}
+
+.icon-container {
+    position: fixed;
+    top: 20.9%;
+    left: 8%;
+}
+
+.brand-icon {
+    width: 34vh;
+    height: auto;
 }
 
 .brand {
@@ -159,22 +194,36 @@ body {
     font-family: 'Honeymoon';
     color: #5c3f5b;
     font-size: 24vh;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-shadow: 0 0 5px #fdf2b2;
     align-self: center;
     width: fit-content;
 }
 
+.top-container {
+    position: relative;
+    height: 45%;
+    width: 100%;
+    box-shadow: 2px 0px 10px 2px #000000b8;
+}
+
+.bottom-container {
+    background: linear-gradient(135deg, #231c25d8, #000000bd);
+    /* border-top: 1px solid #00000090; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 55%;
+    align-items: center;
+}
+
 .tagline {
-    padding: 0 0.5em 0.1em 0.5em;
-    margin: 0 0 0 0;
+    margin: 160px 0px 20px 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #00000073;
     color: #ffffff;
-    font-size: 4.25vh;
+    font-size: 30px;
     font-weight: lighter;
-    align-self: center;
-    width: 95vw;
+    transition: all 0.3s;
 }
 
 .unselectable {
@@ -201,29 +250,31 @@ input[type="file"] {
     width: 40vw;
     padding: 0.5em;
     margin: 2em 0 0.5em 0;
-    border: 2px solid #000000;
+    border: 2px solid rgba(255, 255, 255, 0.75);
     box-shadow: 1px 1px 5px #00000080;
     text-align: center;
     letter-spacing: 0.1em;
     font-size: 3vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background: #ffffff00;
-    color: #000000;
+    color: #ffffff;
     outline: none;
 }
 
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 #sessionJoinId {
-    width: 35vw;
-    box-sizing: border-box;
+  width: 35vw;
+  box-sizing: border-box;
 }
 
 .ui-button {
     display: block;
     margin: 2em 0;
-    border: 1px solid #000;
     width: 35vw;
-    padding: 0.5em;
-    background: #00000096;
+    padding: 12px 24px;
     color: #ffffff;
     text-align: center;
     cursor: pointer;
@@ -231,21 +282,34 @@ input[type="file"] {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
     outline: none;
+    border: none;
+    border-radius: 4px;
+
+    background-size: 200% auto;
+    background-image: linear-gradient(
+      to right,
+      #644551c0 0%,
+      #7f5565c0 20%,
+      #aa6f86c0 70%,
+      #7f5565c0 100%
+    );
+    transition: 0.3s;
 }
 
 .ui-button:hover {
-    box-shadow: 1px 1px 5px #00000080;
+    /* color: var(--text) !important; */
+    background-position: right center;
 }
 
 .ui-item {
     display: block;
     margin: 2vh 0;
-    border: 1px solid #000;
+    border: 1px solid rgba(255, 255, 255, 0.75);
     box-shadow: 1px 1px 5px #00000080;
     width: 35vw;
     padding: 0.5em;
     background: #ffffff00;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
     font-size: 3vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -255,6 +319,10 @@ input[type="file"] {
 
 .wp-item {
     margin: 2vh 0 4vh 0;
+}
+
+.playback-sync-toggle {
+    color: #fff;
 }
 
 #joinedMessageSpan {
@@ -522,7 +590,7 @@ input[type="file"] {
     left: 0;
     width: 100%;
 }
-  
+
 /* 
 Only show the title bar after playback has begun (so as not to hide
 the big play button) and only when paused or when the user is 
@@ -532,17 +600,45 @@ interacting with the player.
 .video-js.vjs-user-active.vjs-has-started .vjs-title-bar{
     display: block;
 }
-  
+
 .form-divider {
-    color: #000000;
+    color: #8f8f8f;
     display: inline-block;
     margin: 0px 5px;
 }
 
 .form-divider-line {
-    border-color: #000000;
+    border-color: #8f8f8f;
     display: inline-block;
     width: 12.5vw;
     margin: 0;
     margin-bottom: 3px;
+}
+
+@media (max-height: 740px) {
+    .tagline {
+        margin: 140px 0 18px 0;
+        font-size: 28px;
+    }
+}
+
+@media (max-height: 680px) {
+    .tagline {
+        margin: 120px 0 16px 0;
+        font-size: 26px;
+    }
+}
+
+@media (max-height: 620px) {
+    .tagline {
+        margin: 100px 0 14px 0;
+        font-size: 24px;
+    }
+}
+
+@media (max-height: 560px) {
+    .tagline {
+        margin: 80px 0 12px 0;
+        font-size: 20px;
+    }
 }

@@ -1,4 +1,4 @@
-const socket = io('https://popcornapp-server.herokuapp.com/');
+const socket = io('https://popcorn-server.onrender.com/');
 
 const { remote } = require('electron');
 const srt2vtt = require('srt-to-vtt');
