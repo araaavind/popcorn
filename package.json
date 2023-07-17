@@ -11,7 +11,7 @@
     "package-linux": "electron-packager . popcorn --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/popcorn-alt.png --prune=true --out=dist",
     "build": "electron-builder"
   },
-  "author": "Aravind Unnikrishnan <aravindmathradan@gmail.com> (https://www.aravindunnikrishnan.xyz)",
+  "author": "Aravind Unnikrishnan <aravindmathradan@gmail.com> (https://www.aravindunnikrishnan.in)",
   "license": "MIT",
   "dependencies": {
     "drag-drop": "^6.1.0",
@@ -19,6 +19,7 @@
     "video.js": "^7.10.2",
     "videojs-hotkeys": "^0.2.27",
     "videojs-youtube": "^2.6.1",
+    "videostream": "^3.2.2",
     "webtorrent": "^0.110.1"
   },
   "devDependencies": {

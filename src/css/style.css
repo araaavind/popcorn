@@ -572,6 +572,11 @@ input[type="file"] {
     left: 0;
     width: 100%;
 }
+
+.torrent-video {
+    height: 100%;
+    width: 100%;
+}
   
 /* 
 Only show the title bar after playback has begun (so as not to hide

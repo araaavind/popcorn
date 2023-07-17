@@ -1,18 +1,32 @@
 const WebTorrent = require('webtorrent');
 const dragDrop = require('drag-drop');
+const VideoStream = require('videostream');
 
 const client = new WebTorrent();
-const magnetURI = 'magnet:?xt=urn:btih:dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c&dn=Big+Buck+Bunny&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fbig-buck-bunny.torrent';
+let magnetURI;
 
-client.add(magnetURI, function (torrent) {
-    // Got torrent metadata!
-    console.log('Client is downloading:', torrent.infoHash);
+document.getElementById('magnetForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    magnetURI = document.getElementById('magnetInput').value;
 
-    let file = torrent.files.find(function (file) {
-        return file.name.endsWith('.mp4')
+    client.add(magnetURI, function (torrent) {
+        // Got torrent metadata!
+        console.log('Client is downloading:', torrent.infoHash);
+
+        let file = torrent.files.find(function (file) {
+            return file.name.endsWith('.mp4')
+        });
+
+        file.renderTo('#torrentVideo');
+
+        document.getElementById('videoPlayer').style.display = "none";
+        document.getElementById('torrentVideoContainer').style.display = "block";
+        document.getElementById('homeScreen').style.display = "none";
+
+        document.getElementById('videoName').textContent = (file.name.length <= 30) ? file.name : file.name.slice(0, 30) + "...";
+        document.getElementById('videoName').style.borderLeft = "1px solid #fff";
     });
-
-    file.renderTo('video', { controls: false });
 });
 
 
