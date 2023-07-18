@@ -6,3 +6,4 @@ dist/*
 *.psd
 build/*
 *.mkv
+.DS_Store
