@@ -3,21 +3,22 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
-const electronReload = require('electron-reload');
-electronReload(__dirname);
+// const electronReload = require('electron-reload');
+// electronReload(__dirname);
 
-if (module.hot) {
-  // module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 let win, loaderWin;
 function createWindow() {
   loaderWin = new BrowserWindow({
     show: false,
     frame: false,
-    backgroundColor: "#1f1f1f",
-    width: 450,
-    height: 300,
+    // backgroundColor: "#1f1f1f",
+    transparent: true,
+    width: 400,
+    height: 220,
     maximizable: false,
     minimizable: false,
     movable: false

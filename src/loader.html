@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/loadingDots.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Moirai+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/loadingDots.css" />
     <title>Loading</title>
     <style>
-        #loader-screen {
-            height: 100%;
-        }
-        #loader {
-            margin: 3em 0;
-        }
-        #loader-brand {
-            width: 100%;
-            margin: 0 0 0.35em 0;
-            text-align: center;
-            font-size: 4.5em;
-            text-shadow: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffe797;
-        }
-        #loader-tagline {
-            width: 100%;
-            background: none;
-            text-align: center;
-            margin-bottom: 10vh;
-            box-sizing: border-box;
-            letter-spacing: 0.05em;
-            font-size: 1.125em;
-        }
+      #loader-screen {
+        background: rgba(32, 32, 32, 0.929);
+        border-radius: 10px;
+        height: 100%;
+      }
+      #loader {
+        margin: 28px 0;
+      }
+      #loader-brand {
+        width: 100%;
+        margin-bottom: 16px;
+        text-align: center;
+        font-size: 52px;
+        font-weight: bold;
+        text-shadow: none;
+        font-family: "Moirai One", Tahoma, Geneva, Verdana, sans-serif;
+        color: #cbaecb;
+      }
+      #loader-tagline {
+        width: 100%;
+        background: none;
+        text-align: center;
+        margin-top: 24px;
+        box-sizing: border-box;
+        letter-spacing: 0.05em;
+        font-size: 16px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #ffffffce;
+        font-weight: 300;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body style="overflow: hidden">
     <div id="loader-screen">
-        <div id="loader">
-            <div class="brand unselectable" id="loader-brand">Popcorn</div>
-            <div class="tagline unselectable" id="loader-tagline">First of it's kind party watch video player</div>
-            <div class="browser-screen-loading-content" style="padding-top: 10px;">
-                <div class="loading-dots dark-gray unselectable">
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                </div>
-            </div>
+      <div id="loader">
+        <div class="unselectable" id="loader-brand">POPCORN</div>
+        <div class="browser-screen-loading-content">
+          <div class="loading-dots dark-gray unselectable">
+            <i class="dot"></i>
+            <i class="dot"></i>
+            <i class="dot"></i>
+            <i class="dot"></i>
+            <i class="dot"></i>
+          </div>
         </div>
+        <div class="unselectable" id="loader-tagline">
+          A party watch video player
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

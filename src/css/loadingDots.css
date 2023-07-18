@@ -16,7 +16,7 @@
     animation: loading-dots-fadein .5s linear forwards;
 }
 
-.loading-dots i {
+.loading-dots .dot {
     width: .5em;
     height: .5em;
     display: inline-block;
@@ -32,11 +32,11 @@
     animation: loading-dots-middle-dots .5s linear infinite;
 }
 
-.loading-dots.dark-gray i {
-    background: #707070;
+.loading-dots.dark-gray .dot {
+    background: #b0b0b0;
 }
 
-.loading-dots i:first-child {
+.loading-dots .dot:first-child {
     -webkit-animation: loading-dots-first-dot .5s infinite;
     -moz-animation: loading-dots-first-dot .5s linear infinite;
     -o-animation: loading-dots-first-dot .5s linear infinite;
@@ -52,7 +52,7 @@
     transform: translate(-1em);
 }
 
-.loading-dots i:last-child {
+.loading-dots .dot:last-child {
     -webkit-animation: loading-dots-last-dot .5s linear infinite;
     -moz-animation: loading-dots-last-dot .5s linear infinite;
     -o-animation: loading-dots-last-dot .5s linear infinite;
